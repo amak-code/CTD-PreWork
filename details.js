@@ -13,13 +13,19 @@ if (artworkId) {
         .then(data => {
             const item = data.data;
             const title = item.title || 'Untitled';
-            const iiif_url = item.image_id ? `https://www.artic.edu/iiif/2/${item.image_id}/full/600,/0/default.jpg` : '';
             const artist = item.artist_display || 'Unknown Artist';
             const origin = item.place_of_origin || 'Unknown Origin';
             const description = item.description || '';
+            let imageContent;
+            if (item.image_id) {
+                const iiif_url = `https://www.artic.edu/iiif/2/${item.image_id}/full/600,/0/default.jpg`;
+                imageContent = `<img src="${iiif_url}" alt="${title}" style="max-width: 100%; height: auto; margin-bottom: 24px;">`;
+            } else {
+                imageContent = `<div class="no-image-placeholder details-placeholder">No image</div>`;
+            }
             detailsContainer.innerHTML = `
                 <h2>${title}</h2>
-                <img src="${iiif_url}" alt="${title}" style="max-width: 100%; height: auto; margin-bottom: 24px;">
+                ${imageContent}
                 <h3>Author: ${artist}</h3>
                 <h4>Origin: ${origin}</h4>
                 <div class="description">Description: ${description}</div>

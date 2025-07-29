@@ -15,7 +15,7 @@ if (artworkId) {
             const title = item.title || 'Untitled';
             const artist = item.artist_display || 'Unknown Artist';
             const origin = item.place_of_origin || 'Unknown Origin';
-            const description = item.description || '';
+            const description = item.description || 'no description available';
             let imageContent;
             if (item.image_id) {
                 const iiif_url = `https://www.artic.edu/iiif/2/${item.image_id}/full/600,/0/default.jpg`;
